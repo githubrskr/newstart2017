@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="pension-online-corp-fault-seq">
+    <property name="logLabel" expression="fn:concat(get-property('PODS_CURRENT_PRX'), '_FAULT')" scope="default" type="STRING"/>
+    <property name="logmessage" expression="fn:concat(get-property('ERROR_MESSAGE'), '&quot;, &quot;errorCode&quot;:&quot;', get-property('ERROR_CODE'), '&quot;, &quot;errorDetail&quot;:&quot;', fn:substring-before(get-property('ERROR_DETAIL'),'&#xA;'), '&quot;, &quot;errorMessage&quot;:&quot;', get-property('ERROR_EXCEPTION'))" scope="default" type="STRING" description="log" />
+    <property name="SEQ_HTTP_SC" value="500" />
+    <property name="SEQ_CODE" value="SERVER_ERROR" />	
+    <property name="SEQ_REASON" value="DES is currently experiencing problems that require live service intervention." />
+    <filter source="get-property('ERROR_CODE')" regex="^(101503|101504|101507|101508)$">
+        <then>
+            <property name="SEQ_HTTP_SC" value="503" />
+			<property name="SEQ_CODE" value="SERVICE_UNAVAILABLE" />				
+            <property name="SEQ_REASON" value="Dependent systems are currently not responding." />
+        </then>
+    </filter>
+    <call-template target="DESLogTemplate">
+        <with-param name="label" value="{get-property('logLabel')}" />
+        <with-param name="message" value="{get-property('logmessage')}"></with-param>
+        <with-param name="httpStatus" value="{get-property('SEQ_HTTP_SC')}"></with-param>
+        <with-param name="category" value="ERROR"></with-param>
+    </call-template>
+	<call-template target="FailureResponseTemplate">
+		<with-param name="DES_HTTP_SC" value="{get-property('SEQ_HTTP_SC')}" />
+		<with-param name="DES_CODE" value="{get-property('SEQ_CODE')}" />
+		<with-param name="DES_REASON" value="{get-property('SEQ_REASON')}" />
+		<with-param name="DES_CONTENT_TYPE" value="application/json" />
+	</call-template>
+</sequence>
