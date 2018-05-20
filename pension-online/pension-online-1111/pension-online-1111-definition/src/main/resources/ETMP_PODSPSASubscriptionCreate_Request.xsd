@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 (http://www.altova.com) by Cap Gemini (Cap Gemini (UK) PLC) -->
+<xsd:schema xmlns:subm="http://hmrc.gov.uk/etmp/digitalgateway/PODS" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://hmrc.gov.uk/etmp/digitalgateway/PODS" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="ETMP_PODSPSASubscriptionCreate_ReqHeader.xsd"/>
+	<xsd:include schemaLocation="ETMP_PODSPSASubscriptionCreate_Body.xsd"/>
+	<xsd:element name="ETMP_Transaction">
+		<xsd:annotation>
+			<xsd:documentation>Root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="subm:ETMP_Transaction_Header"/>
+				<xsd:element ref="subm:PSA_SubscriptionReq"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

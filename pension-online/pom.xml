@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>uk.gov.hmrc.wso2.des.pension-online.esb</groupId>
+  <artifactId>pension-online</artifactId>
+  <packaging>pom</packaging>
+  <name>pension-online</name>
+
+  <parent>
+    <groupId>uk.gov.hmrc.wso2.des.esb</groupId>
+    <artifactId>esb-master</artifactId>
+    <version>93.0.0-SNAPSHOT</version>
+    <relativePath>../../../pom.xml</relativePath>
+  </parent>
+    
+  <modules>
+    <module>pension-online-api</module>
+    <module>pension-online-common</module>
+  <module>pension-online-1111</module>
+  </modules>
+</project>

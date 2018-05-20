@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="pension-online-1111-data-out-seq">
+	
+    <call-template target="DESLogTemplate">
+        <with-param name="label" value="DATA_PENSION_SCHEME_ADMIN_SUBSCRIPTION_RESPONSE_RECEIVED"/>
+        <with-param name="message" value="Response received from Corporate Tier."/>
+        <with-param name="category" value="INFO"/>
+    </call-template>
+
+	<!-- Logging prefix for the generic fault sequence -->
+	<property name="PODS_CURRENT_PRX" value="DATA_PENSION_SCHEME_ADMIN_SUBSCRIPTION" scope="default" type="STRING" />
+
+    <switch xmlns:ns="http://org.apache.synapse/xsd" source="get-property('axis2','HTTP_SC')">
+        <case regex="200">
+            <call-template target="DESLogTemplate">
+                <with-param name="label" value="DATA_PENSION_SCHEME_ADMIN_SUBSCRIPTION_RESPONSE"/>
+                <with-param name="message" value="Successfully processed on Corporate Tier. Sending 200 response back."/>
+                <with-param name="httpStatus" value="200"/>
+                <with-param name="category" value="INFO"/>
+            </call-template>
+            <send/>
+        </case>
+        <case regex="400">
+            <call-template target="DESLogTemplate">
+                <with-param name="label" value="DATA_PENSION_SCHEME_ADMIN_SUBSCRIPTION_RESPONSE"/>
+                <with-param name="message" value="Error 400 while processing on corporate tier. Sending 400 response back."/>
+                <with-param name="httpStatus" value="400"/>
+                <with-param name="category" value="ERROR"/>
+            </call-template>
+			<send/>
+        </case>
+        <case regex="403">
+            <call-template target="DESLogTemplate">
+                <with-param name="label" value="DATA_PENSION_SCHEME_ADMIN_SUBSCRIPTION_RESPONSE"/>
+                <with-param name="message" value="Error 403 while processing on corporate tier. Sending 403 response back."/>
+                <with-param name="httpStatus" value="403"/>
+                <with-param name="category" value="ERROR"/>
+            </call-template>
+			<send/>
+        </case>
+        <case regex="409">
+            <call-template target="DESLogTemplate">
+                <with-param name="label" value="DATA_PENSION_SCHEME_ADMIN_SUBSCRIPTION_RESPONSE"/>
+                <with-param name="message" value="Error 409 while processing on corporate tier. Sending 409 response back."/>
+                <with-param name="httpStatus" value="409"/>
+                <with-param name="category" value="ERROR"/>
+            </call-template>
+			<send/>
+        </case>
+        <case regex="500">
+            <call-template target="DESLogTemplate">
+                <with-param name="label" value="DATA_PENSION_SCHEME_ADMIN_SUBSCRIPTION_RESPONSE"/>
+                <with-param name="message" value="Error 500 while processing on corporate tier. Sending 500 response back."/>
+                <with-param name="httpStatus" value="500"/>
+                <with-param name="category" value="ERROR"/>
+            </call-template>
+			<send/>
+        </case>
+        <case regex="503">
+            <call-template target="DESLogTemplate">
+                <with-param name="label" value="DATA_PENSION_SCHEME_ADMIN_SUBSCRIPTION_RESPONSE"/>
+                <with-param name="message" value="Error 503 while processing on corporate tier. Sending 503 response back."/>
+                <with-param name="httpStatus" value="503"/>
+                <with-param name="category" value="ERROR"/>
+            </call-template>
+			<send/>
+        </case>
+        <default>
+            <call-template target="DESLogTemplate">
+                <with-param name="label" value="DATA_PENSION_SCHEME_ADMIN_SUBSCRIPTION_RESPONSE"/>
+                <with-param name="message" value="Unexpected error while processing on Corporate Tier. Sending 503 response back."/>
+                <with-param name="httpStatus" value="{get-property('axis2','HTTP_SC')}"/>
+                <with-param name="category" value="ERROR"/>
+            </call-template>
+            <call-template target="FailureResponseTemplate">
+                <with-param name="DES_HTTP_SC" value="503"/>
+                <with-param name="DES_CODE" value="SERVICE_UNAVAILABLE"/>
+                <with-param name="DES_REASON" value="Dependent systems are currently not responding."/>
+                <with-param name="DES_CONTENT_TYPE" value="application/json"/>
+            </call-template>
+			<drop/>
+        </default>
+    </switch>
+</sequence>
