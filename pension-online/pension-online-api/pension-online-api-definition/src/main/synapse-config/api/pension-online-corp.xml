@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<api xmlns="http://ws.apache.org/ns/synapse" context="/pension-online" name="pension-online-corp">
-
-  <handlers>
-    <handler class="uk.gov.hmrc.wso2.runtime.handlers.DESBasicAuthenticationForAPIHandler"/>
-  </handlers>
-<resource faultSequence="pension-online-1111-corp-fault-seq" inSequence="pension-online-1111-corp-in-seq" methods="POST" outSequence="pension-online-1111-corp-out-seq" uri-template="pension-online/subscription/{psaId}/list"/>
-</api>
