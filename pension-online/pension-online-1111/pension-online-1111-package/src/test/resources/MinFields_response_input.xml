@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resp:ETMP_TransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:resp="http://hmrc.gov.uk/etmp/digitalgateway/PODS">
-	<resp:ETMP_Transaction_Header>
-		<resp:Status>OK</resp:Status>
-		<resp:StatusText>test status</resp:StatusText>
-		<resp:ProcessingDate>2001-12-17T09:30:47Z</resp:ProcessingDate>
-	</resp:ETMP_Transaction_Header>
-</resp:ETMP_TransactionResponse>
