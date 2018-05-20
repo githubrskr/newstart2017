@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse" name="pension-online-data" context="/pension-online">
+
+  <handlers>
+    <handler class="uk.gov.hmrc.wso2.runtime.handlers.DESBasicAuthenticationForAPIHandler"/>
+  </handlers>
+</api>

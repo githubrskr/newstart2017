@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>uk.gov.hmrc.wso2.des.pension-online.esb</groupId>
+  <artifactId>pension-online-common-definition</artifactId>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>uk.gov.hmrc.wso2.des.pension-online.esb</groupId>
+    <artifactId>pension-online-common</artifactId>
+    <version>93.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <properties>
+    <maven.test.skip>false</maven.test.skip>
+    <CApp.type>bpel/workflow=zip,lib/registry/filter=jar,webapp/jaxws=war,lib/library/bundle=jar,service/dataservice=dbs,synapse/local-entry=xml,synapse/proxy-service=xml,carbon/application=car,registry/resource=zip,lib/dataservice/validator=jar,synapse/endpoint=xml,web/application=war,lib/carbon/ui=jar,service/axis2=aar,synapse/sequence=xml,synapse/configuration=xml,wso2/gadget=dar,lib/registry/handlers=jar,lib/synapse/mediator=jar</CApp.type>
+  </properties>
+
+  <build>
+    <directory>target/capp</directory>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.wso2.maven</groupId>
+        <artifactId>wso2-esb-sequence-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.wso2.maven</groupId>
+        <artifactId>wso2-esb-template-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.wso2.maven</groupId>
+        <artifactId>wso2-general-project-plugin</artifactId>
+        <version>2.0.10</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>registry</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>pom-gen</goal>
+            </goals>
+            <configuration>
+              <artifactLocation>.</artifactLocation>
+              <typeList>${artifact.types}</typeList>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

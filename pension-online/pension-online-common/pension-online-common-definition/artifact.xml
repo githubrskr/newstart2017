@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<artifacts>
+  
+
+
+<artifact name="pension-online-corp-fault-seq" serverRole="ESB_CORP" type="synapse/sequence" version="1.0.0">
+    <file>src/main/synapse-config/sequences/pension-online-corp-fault-seq.xml</file>
+  </artifact>
+</artifacts>
